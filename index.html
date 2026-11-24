@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>¡Nuestra Promoción! | Estrellitas Forjadoras de un Mundo de Paz y Amor ⭐🎓</title>
+  <meta name="description" content="¡Te invitamos a celebrar nuestra Promoción de Inicial! Estrellitas forjadoras de un mundo de paz y amor. Jueves 10 de Diciembre - 6:00 PM - Sabrina's Recepciones." />
+
+  <!-- Open Graph para compartir en WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="¡Nuestra Promoción! ⭐ Estrellitas Forjadoras de un Mundo de Paz y Amor 🎓" />
+  <meta property="og:description" content="Acompáñanos en este día tan especial, lleno de alegría, ilusión y nuevos comienzos. Jueves 10 de Diciembre • 6:00 PM • Sabrina's Recepciones." />
+  <meta property="og:image" content="assets/graduados-estrellitas.jpg" />
+
+  <!-- Tipografías Infantiles de Lujo: Baloo 2, Fredoka, Pacifico y Quicksand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Fredoka:wght@500;600;700&family=Pacifico&family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --sky-blue: #38bdf8;
+      --sky-deep: #0284c7;
+      --sky-pastel: #e0f2fe;
+      --pink-sweet: #f472b6;
+      --pink-deep: #db2777;
+      --pink-pastel: #fce7f3;
+      --gold-star: #fbbf24;
+      --gold-warm: #d97706;
+      --gold-light: #fef3c7;
+      --cream-bg: #fffdf7;
+      --text-brown: #451a03;
+      --text-soft: #6b4c35;
+      --card-glass: rgba(255, 255, 255, 0.94);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --shadow-magic: 0 18px 45px rgba(180, 120, 60, 0.16), 0 4px 14px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      font-family: 'Quicksand', sans-serif;
+      color: var(--text-brown);
+      background: #fff9ec;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* =====================================================
+       FONDO DE RAYOS PASTEL TIPO SOL (SUNBURST) + ESTRELLAS
+       ===================================================== */
+    .sunburst-bg {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      z-index: 0;
+      pointer-events: none;
+      background: repeating-conic-gradient(
+        from 0deg,
+        #fff7e6 0deg 15deg,
+        #ffeef5 15deg 30deg,
+        #eef9ff 30deg 45deg,
+        #fffbeb 45deg 60deg
+      );
+      opacity: 0.88;
+      animation: rotateSunburst 110s linear infinite;
+    }
+
+    @keyframes rotateSunburst {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .ambient-clouds {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(251, 191, 36, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(244, 114, 182, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(56, 189, 248, 0.18) 0%, transparent 50%);
+    }
+
+    /* Canvas interactivo para estelas de estrellas al tocar */
+    #sparkle-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Partículas flotantes (globos, estrellas, birretes) */
+    .floating-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .float-particle {
+      position: absolute;
+      bottom: -60px;
+      user-select: none;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(0.9);
+        opacity: 0;
+      }
+      12% {
+        opacity: 0.85;
+      }
+      88% {
+        opacity: 0.85;
+      }
+      100% {
+        transform: translateY(-112vh) rotate(24deg) scale(1.08);
+        opacity: 0;
+      }
+    }
+
+    /* Guirnalda superior de banderines pastel */
+    .bunting-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 44px;
+      z-index: 40;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .bunting-svg {
+      width: 100%;
+      max-width: 720px;
+      height: 44px;
+      filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.08));
+    }
+
+    /* =====================================================
+       BOTÓN FLOTANTE DE MÚSICA
+       ===================================================== */
+    .music-pill-btn {
+      position: fixed;
+      top: 48px;
+      right: 16px;
+      z-index: 95;
+      background: rgba(255, 255, 255, 0.95);
+      border: 2.5px solid var(--gold-star);
+      border-radius: 999px;
+      padding: 8px 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(217, 119, 6, 0.22);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s;
+    }
+
+    .music-pill-btn:active {
+      transform: scale(0.93);
+    }
+
+    .music-pill-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .music-pill-text {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-brown);
+    }
+
+    .sound-wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 13px;
+    }
+
+    .sound-wave span {
+      width: 3px;
+      height: 4px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, var(--pink-deep), var(--gold-star));
+      transition: height 0.2s;
+    }
+
+    .music-pill-btn.playing .sound-wave span:nth-child(1) {
+      animation: eqBounce 0.55s infinite ease-in-out;
+    }
+    .music-pill-btn.playing .sound-wave span:nth-child(2) {
+      animation: eqBounce 0.55s infinite ease-in-out 0.18s;
+    }
+    .music-pill-btn.playing .sound-wave span:nth-child(3) {
+      animation: eqBounce 0.55s infinite ease-in-out 0.34s;
+    }
+
+    @keyframes eqBounce {
+      0%, 100% { height: 4px; }
+      50% { height: 13px; }
+    }
+
+    /* =====================================================
+       PANTALLA 1: CUENTO MÁGICO 3D DE BIENVENIDA (PORTADA)
+       ===================================================== */
+    #storybook-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 85;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px 16px;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(255, 251, 235, 0.96) 0%, rgba(254, 242, 242, 0.96) 52%, rgba(224, 242, 254, 0.97) 100%);
+      backdrop-filter: blur(10px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #storybook-gate.opened {
+      opacity: 0;
+      transform: scale(1.12);
+      pointer-events: none;
+    }
+
+    .storybook-cover-card {
+      width: 100%;
+      max-width: 410px;
+      background: linear-gradient(180deg, #ffffff 0%, #fff9eb 100%);
+      border-radius: 34px;
+      border: 4px solid #fde68a;
+      box-shadow:
+        0 25px 60px rgba(180, 110, 40, 0.24),
+        0 0 0 8px rgba(255, 255, 255, 0.75),
+        inset 0 2px 12px rgba(251, 191, 36, 0.25);
+      padding: 26px 22px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: gentleFloatCard 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloatCard {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .book-spine-accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 12px;
+      background: linear-gradient(180deg, #f472b6, #fbbf24, #38bdf8);
+    }
+
+    .gate-top-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      color: #92400e;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1.5px solid #f59e0b;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.18);
+    }
+
+    .gate-title-main {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(2rem, 7.5vw, 2.45rem);
+      font-weight: 800;
+      line-height: 1.02;
+      color: #d97706;
+      text-shadow: 0 3px 0 #fde68a, 0 5px 12px rgba(180, 83, 9, 0.18);
+      margin-bottom: 2px;
+    }
+
+    .gate-title-sub {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(1.85rem, 7vw, 2.25rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: #ec4899;
+      text-shadow: 0 3px 0 #fbcfe8, 0 5px 12px rgba(219, 39, 119, 0.18);
+      margin-bottom: 10px;
+    }
+
+    .gate-motto {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.05rem, 4.2vw, 1.25rem);
+      color: #b45309;
+      line-height: 1.38;
+      margin-bottom: 14px;
+      padding: 0 6px;
+    }
+
+    .gate-illustration-frame {
+      width: 215px;
+      height: 215px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      padding: 6px;
+      background: linear-gradient(135deg, #38bdf8 0%, #fbbf24 50%, #f472b6 100%);
+      box-shadow: 0 12px 30px rgba(236, 72, 153, 0.24);
+      position: relative;
+    }
+
+    .gate-illustration-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #ffffff;
+      display: block;
+    }
+
+    .gate-floating-badge {
+      position: absolute;
+      bottom: -4px;
+      right: -6px;
+      background: #ffffff;
+      border: 2.5px solid #fbbf24;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #b45309;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .gate-instruction {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+    }
+
+    .btn-open-storybook {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #f59e0b 0%, #ec4899 55%, #0ea5e9 100%);
+      background-size: 200% 200%;
+      animation: gradientPulse 4s ease infinite;
+      color: #ffffff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 12px 28px rgba(236, 72, 153, 0.38), inset 0 2px 4px rgba(255, 255, 255, 0.45);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .btn-open-storybook:hover,
+    .btn-open-storybook:active {
+      transform: scale(0.97);
+    }
+
+    @keyframes gradientPulse {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* =====================================================
+       CONTENEDOR PRINCIPAL DE LA INVITACIÓN
+       ===================================================== */
+    .main-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 56px 16px 110px;
+    }
+
+    /* Bloques / Tarjetas de sección */
+    .story-card {
+      background: var(--card-glass);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-xl);
+      border: 3px solid rgba(251, 191, 36, 0.45);
+      box-shadow: var(--shadow-magic);
+      padding: 26px 20px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .story-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-rainbow-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 7px;
+      background: linear-gradient(90deg, #38bdf8, #f472b6, #fbbf24, #34d399, #a78bfa);
+    }
+
+    /* =====================================================
+       SECCIÓN 1: HERO PORTADA "¡NUESTRA PROMOCIÓN!"
+       ===================================================== */
+    .hero-card {
+      text-align: center;
+      padding-top: 32px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(254, 243, 199, 0.85) 0%, rgba(255, 255, 255, 0.96) 68%);
+    }
+
+    .promo-year-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #ffffff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 999px;
+      box-shadow: 0 6px 16px rgba(2, 132, 199, 0.28);
+      margin-bottom: 12px;
+    }
+
+    .hero-heading-nuestra {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(2.35rem, 9vw, 3.1rem);
+      font-weight: 800;
+      color: #f59e0b;
+      line-height: 0.98;
+      text-shadow:
+        0 3px 0 #78350f,
+        0 6px 16px rgba(245, 158, 11, 0.28);
+      letter-spacing: -0.5px;
+    }
+
+    .hero-heading-promocion {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(2.25rem, 8.5vw, 2.95rem);
+      font-weight: 800;
+      color: #ec4899;
+      line-height: 1.05;
+      text-shadow:
+        0 3px 0 #831843,
+        0 6px 16px rgba(236, 72, 153, 0.28);
+      margin-bottom: 12px;
+    }
+
+    .motto-wreath-box {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef2f2 50%, #f0f9ff 100%);
+      border: 2.5px dashed #f59e0b;
+      border-radius: 24px;
+      padding: 14px 16px;
+      margin: 0 auto 18px;
+      position: relative;
+    }
+
+    .motto-script {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.22rem, 4.8vw, 1.5rem);
+      color: #d97706;
+      line-height: 1.38;
+      text-shadow: 0 2px 0 #ffffff;
+    }
+
+    /* Escenario interactivo de los niños graduados */
+    .graduates-stage {
+      position: relative;
+      width: 100%;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 4px solid #ffffff;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+      margin-bottom: 18px;
+      cursor: pointer;
+      background: #fff8eb;
+    }
+
+    .graduates-stage img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .graduates-stage:hover img,
+    .graduates-stage.celebrating img {
+      transform: scale(1.04);
+    }
+
+    .stage-tap-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.94);
+      border: 2px solid var(--gold-star);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-brown);
+      white-space: nowrap;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      animation: bouncePill 2s infinite;
+    }
+
+    @keyframes bouncePill {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    .invite-call-heading {
+      font-family: 'Fredoka', sans-serif;
+      font-size: clamp(1.3rem, 5vw, 1.55rem);
+      font-weight: 700;
+      color: #451a03;
+      line-height: 1.28;
+      margin-bottom: 10px;
+    }
+
+    .invite-call-sub {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      padding: 0 6px;
+    }
+
+    .te-esperamos-banner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #fde047 0%, #facc15 100%);
+      border: 2.5px solid #ca8a04;
+      border-radius: 999px;
+      padding: 10px 26px;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.35rem;
+      color: #451a03;
+      box-shadow: 0 8px 20px rgba(234, 179, 8, 0.3);
+    }
+
+    /* =====================================================
+       SECCIÓN 2: CUENTA REGRESIVA MÁGICA
+       ===================================================== */
+    .section-header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--pink-deep);
+      background: var(--pink-pastel);
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(1.5rem, 5.8vw, 1.85rem);
+      font-weight: 800;
+      color: var(--text-brown);
+      line-height: 1.15;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .cd-box {
+      background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%);
+      border: 2.5px solid #fde68a;
+      border-radius: 20px;
+      padding: 14px 6px;
+      text-align: center;
+      box-shadow: 0 8px 18px rgba(217, 119, 6, 0.1);
+      position: relative;
+    }
+
+    .cd-box:nth-child(1) { border-color: #7dd3fc; background: linear-gradient(180deg, #ffffff, #f0f9ff); }
+    .cd-box:nth-child(2) { border-color: #f9a8d4; background: linear-gradient(180deg, #ffffff, #fdf2f8); }
+    .cd-box:nth-child(3) { border-color: #fcd34d; background: linear-gradient(180deg, #ffffff, #fffbeb); }
+    .cd-box:nth-child(4) { border-color: #6ee7b7; background: linear-gradient(180deg, #ffffff, #ecfdf5); }
+
+    .cd-number {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(1.65rem, 6vw, 2.1rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--text-brown);
+      margin-bottom: 4px;
+    }
+
+    .cd-label {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      letter-spacing: 0.5px;
+    }
+
+    /* =====================================================
+       SECCIÓN 3: HISTORIA & GRATITUD (INSPIRADO EN EL CUENTO)
+       ===================================================== */
+    .school-illustration-box {
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 3px solid #ffffff;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+      margin-bottom: 16px;
+    }
+
+    .school-illustration-box img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .story-tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .story-tab-btn {
+      flex: 1;
+      border: 2px solid #fde68a;
+      background: #fffbeb;
+      color: #92400e;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .story-tab-btn.active {
+      background: linear-gradient(135deg, #f59e0b, #ec4899);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 6px 16px rgba(236, 72, 153, 0.28);
+    }
+
+    .story-quote-panel {
+      background: #ffffff;
+      border: 2px solid #fef3c7;
+      border-radius: 22px;
+      padding: 18px 16px;
+      text-align: center;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      line-height: 1.58;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* =====================================================
+       SECCIÓN 4: CUADRO DE HONOR (COLEGIO, MISS Y PADRINOS)
+       CON PLACEHOLDERS EDITABLES "POR AGREGAR DATOS"
+       ===================================================== */
+    .honor-roll-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .honor-item {
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 16px 18px;
+      border: 2.5px dashed #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .honor-item.miss-card {
+      border-color: #f9a8d4;
+      background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
+    }
+
+    .honor-item.padrinos-card {
+      border-color: #7dd3fc;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    }
+
+    .honor-item.school-card {
+      border-color: #fcd34d;
+      background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
+    }
+
+    .honor-icon-badge {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      flex-shrink: 0;
+      background: #ffffff;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
+    }
+
+    .honor-content {
+      flex: 1;
+      text-align: left;
+    }
+
+    .honor-role-label {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-bottom: 3px;
+      display: block;
+    }
+
+    .honor-placeholder-value {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-brown);
+      line-height: 1.2;
+    }
+
+    .pending-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 5px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(245, 158, 11, 0.14);
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    /* =====================================================
+       SECCIÓN 5: FECHA, HORA Y LUGAR (DATOS OFICIALES)
+       ===================================================== */
+    .event-details-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .event-detail-row {
+      background: #ffffff;
+      border: 2.5px solid #fde68a;
+      border-radius: 22px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .event-detail-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border: 2px solid #f59e0b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.65rem;
+      flex-shrink: 0;
+    }
+
+    .event-detail-row:nth-child(1) .event-detail-icon {
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      border-color: #0284c7;
+    }
+
+    .event-detail-row:nth-child(2) .event-detail-icon {
+      background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+      border-color: #db2777;
+    }
+
+    .event-detail-info h4 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #92400e;
+      margin-bottom: 2px;
+    }
+
+    .event-detail-info .detail-primary {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-brown);
+      line-height: 1.15;
+    }
+
+    .event-detail-info .detail-secondary {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    .action-buttons-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-action-gps {
+      width: 100%;
+      text-decoration: none;
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+      color: #ffffff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      padding: 15px 22px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 24px rgba(2, 132, 199, 0.32);
+      transition: transform 0.2s;
+    }
+
+    .btn-action-gps:active {
+      transform: scale(0.97);
+    }
+
+    .btn-action-calendar {
+      width: 100%;
+      text-decoration: none;
+      background: #ffffff;
+      color: #b45309;
+      border: 2.5px solid #f59e0b;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      padding: 13px 20px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-action-calendar:active {
+      transform: scale(0.97);
+      background: #fffbeb;
+    }
+
+    /* =====================================================
+       SECCIÓN 6: MINI-JUEGO INTERACTIVO "¡LANZA LOS BIRRETES!"
+       ===================================================== */
+    .interactive-game-card {
+      text-align: center;
+      background: linear-gradient(180deg, #fffbeb 0%, #fdf2f8 100%);
+      border-color: #f472b6;
+    }
+
+    .cap-toss-arena {
+      position: relative;
+      height: 150px;
+      background: radial-gradient(circle at 50% 80%, #ffffff 0%, #e0f2fe 100%);
+      border-radius: 24px;
+      border: 2.5px solid #bae6fd;
+      margin: 14px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .arena-graduates-mini {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      z-index: 2;
+    }
+
+    .mini-grad-avatar {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      object-fit: cover;
+      background: #ffffff;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .cap-toss-arena.jumping .mini-grad-avatar {
+      transform: translateY(-22px) scale(1.08);
+    }
+
+    .flying-cap {
+      position: absolute;
+      font-size: 2rem;
+      pointer-events: none;
+      z-index: 5;
+      animation: tossCapArc 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes tossCapArc {
+      0% {
+        transform: translateY(30px) rotate(0deg) scale(0.8);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-65px) rotate(180deg) scale(1.25);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(20px) rotate(360deg) scale(0.9);
+        opacity: 0;
+      }
+    }
+
+    .star-counter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 2px solid #fbbf24;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #b45309;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.18);
+    }
+
+    .btn-toss-caps {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 15px 22px;
+      background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+      color: #ffffff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 10px 24px rgba(236, 72, 153, 0.32);
+      transition: transform 0.2s;
+    }
+
+    .btn-toss-caps:active {
+      transform: scale(0.96);
+    }
+
+    /* =====================================================
+       SECCIÓN 7: CONFIRMACIÓN DE ASISTENCIA (RSVP WHATSAPP)
+       ===================================================== */
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-brown);
+      margin-bottom: 5px;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 16px;
+      border: 2px solid #fde68a;
+      background: #ffffff;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-brown);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      border-color: var(--pink-sweet);
+      box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.15);
+    }
+
+    .btn-rsvp-whatsapp {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      color: #ffffff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
+      margin-top: 6px;
+      transition: transform 0.2s;
+    }
+
+    .btn-rsvp-whatsapp:active {
+      transform: scale(0.97);
+    }
+
+    /* =====================================================
+       FOOTER FIRMA ROVINSON ARANA STUDIO
+       ===================================================== */
+    .studio-footer {
+      text-align: center;
+      padding: 18px 12px 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-soft);
+    }
+
+    .studio-footer a {
+      color: #d97706;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    /* Toast Flotante */
+    .magic-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      z-index: 100;
+      background: linear-gradient(135deg, #451a03, #78350f);
+      color: #ffffff;
+      border: 2px solid #fbbf24;
+      padding: 13px 24px;
+      border-radius: 999px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .magic-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Audio Musical Mágico (Caja de Música / Graduación Infantil) -->
+  <audio id="bg-music" loop preload="auto" playsinline>
+    <source src="assets/musica-estrellitas.mp3" type="audio/mpeg" />
+    <source src="assets/musica-estrellitas.wav" type="audio/wav" />
+  </audio>
+
+  <!-- Fondo de rayos pastel animados -->
+  <div class="sunburst-bg"></div>
+  <div class="ambient-clouds"></div>
+
+  <!-- Lienzo de chispas mágicas al tocar la pantalla -->
+  <canvas id="sparkle-canvas"></canvas>
+
+  <!-- Partículas flotantes (globos, estrellas, birretes) -->
+  <div class="floating-layer" id="floating-layer"></div>
+
+  <!-- Banderines pastel superiores -->
+  <div class="bunting-top" aria-hidden="true">
+    <svg class="bunting-svg" viewBox="0 0 600 48" preserveAspectRatio="none">
+      <path d="M0,4 Q150,24 300,6 Q450,24 600,4" fill="none" stroke="#d97706" stroke-width="2" />
+      <polygon points="15,6 45,10 30,38" fill="#7dd3fc" />
+      <polygon points="55,11 85,14 70,42" fill="#f9a8d4" />
+      <polygon points="95,14 125,16 110,44" fill="#fde047" />
+      <polygon points="135,16 165,16 150,44" fill="#a7f3d0" />
+      <polygon points="175,16 205,14 190,42" fill="#c4b5fd" />
+      <polygon points="215,14 245,11 230,40" fill="#7dd3fc" />
+      <polygon points="255,10 285,7 270,36" fill="#f9a8d4" />
+      <polygon points="315,7 345,10 330,36" fill="#fde047" />
+      <polygon points="355,11 385,14 370,40" fill="#7dd3fc" />
+      <polygon points="395,14 425,16 410,42" fill="#f9a8d4" />
+      <polygon points="435,16 465,16 450,44" fill="#a7f3d0" />
+      <polygon points="475,16 505,14 490,42" fill="#fde047" />
+      <polygon points="515,14 545,11 530,40" fill="#c4b5fd" />
+      <polygon points="555,10 585,6 570,36" fill="#7dd3fc" />
+    </svg>
+  </div>
+
+  <!-- Botón flotante de música -->
+  <button class="music-pill-btn" id="music-toggle" type="button" aria-label="Controlar música">
+    <span class="music-pill-icon" id="music-icon">🎵</span>
+    <span class="music-pill-text" id="music-text">Música</span>
+    <div class="sound-wave">
+      <span></span><span></span><span></span>
+    </div>
+  </button>
+
+  <!-- =====================================================
+       PANTALLA 1: PORTADA DEL CUENTO MÁGICO 3D
+       ===================================================== -->
+  <div id="storybook-gate">
+    <div class="storybook-cover-card">
+      <div class="book-spine-accent"></div>
+
+      <div class="gate-top-pill">
+        <span>🎓</span>
+        <span>Promoción de Inicial 2026</span>
+        <span>⭐</span>
+      </div>
+
+      <div class="gate-title-main">¡Nuestra</div>
+      <div class="gate-title-sub">Promoción!</div>
+
+      <p class="gate-motto">
+        “¡Estrellitas forjadoras de un mundo de paz y amor!”
+      </p>
+
+      <div class="gate-illustration-frame">
+        <img src="assets/graduados-estrellitas.jpg" alt="Graduados de Inicial Estrellitas" />
+        <div class="gate-floating-badge">✨ ¡Lo logramos! ✨</div>
+      </div>
+
+      <p class="gate-instruction">
+        Toca el botón mágico para abrir nuestra invitación con música
+      </p>
+
+      <button class="btn-open-storybook" id="btn-open-story" type="button">
+        <span>📖 ¡Abrir Cuento de Graduación!</span>
+        <span>✨</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL DE LA INVITACIÓN INTERACTIVA
+       ===================================================== -->
+  <main class="main-wrapper">
+
+    <!-- 1. PORTADA PRINCIPAL CON DATOS DEL AFICHE -->
+    <section class="story-card hero-card visible">
+      <div class="card-rainbow-bar"></div>
+
+      <div class="promo-year-pill">
+        <span>🌟</span>
+        <span>Graduación de Inicial • 2026</span>
+        <span>🌟</span>
+      </div>
+
+      <h1 class="hero-heading-nuestra">¡Nuestra</h1>
+      <h2 class="hero-heading-promocion">Promoción!</h2>
+
+      <div class="motto-wreath-box">
+        <p class="motto-script">
+          ¡Estrellitas forjadoras de un mundo de paz y amor!
+        </p>
+      </div>
+
+      <!-- Escenario 3D interactivo al tacto -->
+      <div class="graduates-stage" id="hero-graduates-stage" title="Toca para celebrar con estrellas y confeti">
+        <img src="assets/graduados-estrellitas.jpg" alt="Niños graduados Estrellitas forjadoras de un mundo de paz y amor" />
+        <div class="stage-tap-badge">👆 ¡Tócame para lanzar estrellas! ⭐</div>
+      </div>
+
+      <h3 class="invite-call-heading">
+        🎓 ¡Te invitamos a celebrar nuestra promoción!
+      </h3>
+
+      <p class="invite-call-sub">
+        Acompáñanos en este día tan especial, lleno de alegría, ilusión y nuevos comienzos.
+      </p>
+
+      <div class="te-esperamos-banner">
+        <span>¡Te esperamos!</span>
+        <span>🩵🩷</span>
+      </div>
+    </section>
+
+    <!-- 2. CUENTA REGRESIVA EN TIEMPO REAL -->
+    <section class="story-card">
+      <div class="card-rainbow-bar"></div>
+      <div class="section-header">
+        <span class="section-tag">⏰ Cuenta Regresiva</span>
+        <h3 class="section-title">¿Cuánto falta para nuestro gran día?</h3>
+      </div>
+
+      <div class="countdown-grid">
+        <div class="cd-box">
+          <div class="cd-number" id="cd-days">00</div>
+          <div class="cd-label">Días</div>
+        </div>
+        <div class="cd-box">
+          <div class="cd-number" id="cd-hours">00</div>
+          <div class="cd-label">Horas</div>
+        </div>
+        <div class="cd-box">
+          <div class="cd-number" id="cd-mins">00</div>
+          <div class="cd-label">Minutos</div>
+        </div>
+        <div class="cd-box">
+          <div class="cd-number" id="cd-secs">00</div>
+          <div class="cd-label">Segundos</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. NUESTRA HISTORIA Y AGRADECIMIENTO (INSPIRADO EN EL VIDEO DE REFERENCIA) -->
+    <section class="story-card">
+      <div class="card-rainbow-bar"></div>
+      <div class="section-header">
+        <span class="section-tag">🌈 Nuestro Camino</span>
+        <h3 class="section-title">Un Cuento de Pequeños Soñadores</h3>
+      </div>
+
+      <div class="school-illustration-box">
+        <img src="assets/escuelita-magica.jpg" alt="Nuestra Escuelita de Inicial" />
+      </div>
+
+      <div class="story-tabs">
+        <button class="story-tab-btn active" type="button" data-story="1">
+          🎒 Nuestra Aventura
+        </button>
+        <button class="story-tab-btn" type="button" data-story="2">
+          💖 Nuestro Agradecimiento
+        </button>
+      </div>
+
+      <div class="story-quote-panel" id="story-quote-panel">
+        “Llegamos a nuestra escuelita con una mochila llena de ilusión, crayolas y sueños. Entre canciones, juegos y sonrisas aprendimos a compartir, y hoy damos nuestro primer gran paso hacia una nueva aventura.” ✨
+      </div>
+    </section>
+
+    <!-- 4. CUADRO DE HONOR: COLEGIO, MISS Y PADRINOS (ESPACIOS PREPARADOS PARA AGREGAR DATOS) -->
+    <section class="story-card">
+      <div class="card-rainbow-bar"></div>
+      <div class="section-header">
+        <span class="section-tag">👑 Cuadro de Honor</span>
+        <h3 class="section-title">Quienes Guiaron Nuestros Pasos</h3>
+      </div>
+
+      <div class="honor-roll-list">
+        <!-- Institución Educativa -->
+        <div class="honor-item school-card">
+          <div class="honor-icon-badge">🏫</div>
+          <div class="honor-content">
+            <span class="honor-role-label">Institución Educativa / Aula</span>
+            <div class="honor-placeholder-value">[Por agregar datos del Colegio / Aula]</div>
+            <span class="pending-chip">✏️ Espacio listo para personalizar</span>
+          </div>
+        </div>
+
+        <!-- Nombre de la Miss / Profesora -->
+        <div class="honor-item miss-card">
+          <div class="honor-icon-badge">👩‍🏫</div>
+          <div class="honor-content">
+            <span class="honor-role-label">Nuestra Querida Miss / Profesora</span>
+            <div class="honor-placeholder-value">[Por agregar datos de la Miss]</div>
+            <span class="pending-chip">🌸 Espacio listo para agregar nombre</span>
+          </div>
+        </div>
+
+        <!-- Nombre de los Padrinos -->
+        <div class="honor-item padrinos-card">
+          <div class="honor-icon-badge">🌟</div>
+          <div class="honor-content">
+            <span class="honor-role-label">Nuestros Padrinos de Promoción</span>
+            <div class="honor-placeholder-value">[Por agregar datos de los Padrinos]</div>
+            <span class="pending-chip">🤝 Espacio listo para agregar nombres</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. COORDENADAS OFICIALES DEL EVENTO (FECHA, HORA, LUGAR + GPS) -->
+    <section class="story-card">
+      <div class="card-rainbow-bar"></div>
+      <div class="section-header">
+        <span class="section-tag">📍 Coordenadas del Evento</span>
+        <h3 class="section-title">¿Cuándo y dónde celebraremos?</h3>
+      </div>
+
+      <div class="event-details-grid">
+        <!-- Fecha -->
+        <div class="event-detail-row">
+          <div class="event-detail-icon">🗓️</div>
+          <div class="event-detail-info">
+            <h4>Fecha de Ceremonia</h4>
+            <div class="detail-primary">Jueves 10 de Diciembre</div>
+            <div class="detail-secondary">Promoción Inicial 2026</div>
+          </div>
+        </div>
+
+        <!-- Hora -->
+        <div class="event-detail-row">
+          <div class="event-detail-icon">🕕</div>
+          <div class="event-detail-info">
+            <h4>Hora Exacta</h4>
+            <div class="detail-primary">6:00 PM</div>
+            <div class="detail-secondary">Se agradece puntualidad</div>
+          </div>
+        </div>
+
+        <!-- Lugar -->
+        <div class="event-detail-row">
+          <div class="event-detail-icon">🏛️</div>
+          <div class="event-detail-info">
+            <h4>Lugar de Recepción</h4>
+            <div class="detail-primary">Sabrina's Recepciones</div>
+            <div class="detail-secondary">Av. Huayna Cápac 1790 - La Victoria</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons-stack">
+        <a
+          class="btn-action-gps"
+          href="https://www.google.com/maps/search/?api=1&query=Sabrina%27s+Recepciones+Huayna+Capac+1790+La+Victoria"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>📍 Ver Ubicación en Google Maps</span>
+          <span>🚗</span>
+        </a>
+
+        <a
+          class="btn-action-calendar"
+          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Promoci%C3%B3n+Inicial+-+Estrellitas+Forjadoras+de+un+Mundo+de+Paz+y+Amor&dates=20261210T230000Z/20261211T030000Z&details=Celebraci%C3%B3n+de+nuestra+Promoci%C3%B3n+de+Inicial+en+Sabrina%27s+Recepciones+%28Huayna+C%C3%A1pac+1790+-+La+Victoria%29.&location=Sabrina%27s+Recepciones%2C+Huayna+C%C3%A1pac+1790%2C+La+Victoria"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>📅 Agendar Recordatorio en mi Celular</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 6. EXPERIENCIA INTERACTIVA: ¡LANZA LOS BIRRETES AL AIRE! -->
+    <section class="story-card interactive-game-card">
+      <div class="card-rainbow-bar"></div>
+      <div class="section-header">
+        <span class="section-tag">🎉 Rincón Interactivo</span>
+        <h3 class="section-title">¡Celebra con Nuestras Estrellitas!</h3>
+      </div>
+
+      <div class="star-counter-pill">
+        <span>⭐ Aplausos y Estrellas enviadas:</span>
+        <strong id="star-score">128</strong>
+      </div>
+
+      <div class="cap-toss-arena" id="cap-toss-arena" title="Toca para lanzar birretes">
+        <div class="arena-graduates-mini">
+          <img class="mini-grad-avatar" src="assets/nino-graduado.png" alt="Graduado niño" />
+          <img class="mini-grad-avatar" src="assets/nina-graduada.png" alt="Graduada niña" />
+        </div>
+      </div>
+
+      <button class="btn-toss-caps" id="btn-toss-caps" type="button">
+        <span>🎓 ¡Lanzar Birretes y Estrellas al Aire!</span>
+        <span>🎊</span>
+      </button>
+    </section>
+
+    <!-- 7. CONFIRMACIÓN DE ASISTENCIA (RSVP A WHATSAPP) -->
+    <section class="story-card">
+      <div class="card-rainbow-bar"></div>
+      <div class="section-header">
+        <span class="section-tag">💌 Confirmación RSVP</span>
+        <h3 class="section-title">¡Confirma tu Asistencia!</h3>
+      </div>
+
+      <p style="text-align:center; font-size:0.92rem; font-weight:700; color:var(--text-soft);">
+        Envíanos tu confirmación y un mensajito de cariño para nuestras estrellitas graduadas:
+      </p>
+
+      <form class="rsvp-form" id="rsvp-form">
+        <div class="form-group">
+          <label for="guest-name">👤 Tu Nombre o Familia:</label>
+          <input
+            type="text"
+            id="guest-name"
+            class="form-input"
+            placeholder="Ej. Familia Rojas / Tía Claudia"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="guest-count">🎟️ Número de Asistentes:</label>
+          <select id="guest-count" class="form-select">
+            <option value="1 persona">1 persona</option>
+            <option value="2 personas" selected>2 personas</option>
+            <option value="3 personas">3 personas</option>
+            <option value="4 personas">4 personas</option>
+            <option value="Toda la familia">Toda la familia</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="guest-wish">🌟 Mensaje o deseo para la Promoción:</label>
+          <input
+            type="text"
+            id="guest-wish"
+            class="form-input"
+            placeholder="¡Muchas felicidades pequeñas estrellitas!"
+          />
+        </div>
+
+        <button class="btn-rsvp-whatsapp" type="submit">
+          <span>📲 Confirmar Asistencia por WhatsApp</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="studio-footer">
+      <p>Hecho con magia para la Promoción <strong>“Estrellitas forjadoras de un mundo de paz y amor”</strong> ⭐</p>
+      <p style="margin-top:4px;">Experiencia Digital Interactiva • <a href="#storybook-gate" id="replay-story-link">Volver a ver Portada</a></p>
+    </footer>
+
+  </main>
+
+  <!-- Toast de notificación -->
+  <div class="magic-toast" id="magic-toast">
+    🎓 ¡Viva la Promoción! ¡Estrellitas al futuro! ⭐
+  </div>
+
+  <script>
+    /* =====================================================
+       1. SONIDO DE CAMPANITAS MÁGICAS (WEB AUDIO SYNTH) + MÚSICA MP3
+       ===================================================== */
+    const bgMusic = document.getElementById('bg-music');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicText = document.getElementById('music-text');
+    let isPlaying = false;
+
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playMagicChime() {
+      try {
+        if (!AudioCtx) return;
+        if (!audioCtx) audioCtx = new AudioCtx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+        notes.forEach((freq, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          const start = audioCtx.currentTime + i * 0.075;
+          osc.frequency.setValueAtTime(freq, start);
+
+          gain.gain.setValueAtTime(0.001, start);
+          gain.gain.exponentialRampToValueAtTime(0.16, start + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.55);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start(start);
+          osc.stop(start + 0.55);
+        });
+      } catch (e) {}
+    }
+
+    function startBackgroundMusic() {
+      if (!bgMusic || isPlaying) return;
+      bgMusic.volume = 0.65;
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        musicToggle.classList.add('playing');
+        musicText.textContent = 'Sonando';
+      }).catch(() => {});
+    }
+
+    musicToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isPlaying) {
+        bgMusic.pause();
+        isPlaying = false;
+        musicToggle.classList.remove('playing');
+        musicText.textContent = 'Música';
+      } else {
+        startBackgroundMusic();
+      }
+    });
+
+    /* =====================================================
+       2. CONFETI TEMÁTICO (CELESTE, ROSA, DORADO ESTRELLA)
+       ===================================================== */
+    function launchStarConfetti() {
+      if (typeof confetti !== 'function') return;
+      const colors = ['#38bdf8', '#f472b6', '#fbbf24', '#fde047', '#ffffff'];
+
+      confetti({
+        particleCount: 75,
+        spread: 80,
+        origin: { y: 0.62 },
+        colors
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 40,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0, y: 0.65 },
+          colors
+        });
+        confetti({
+          particleCount: 40,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1, y: 0.65 },
+          colors
+        });
+      }, 220);
+    }
+
+    /* =====================================================
+       3. ABRIR PORTADA DEL CUENTO 3D
+       ===================================================== */
+    const storybookGate = document.getElementById('storybook-gate');
+    const btnOpenStory = document.getElementById('btn-open-story');
+    const replayStoryLink = document.getElementById('replay-story-link');
+
+    btnOpenStory.addEventListener('click', () => {
+      playMagicChime();
+      startBackgroundMusic();
+      launchStarConfetti();
+      storybookGate.classList.add('opened');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    replayStoryLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      storybookGate.classList.remove('opened');
+      playMagicChime();
+    });
+
+    /* =====================================================
+       4. CUENTA REGRESIVA AL JUEVES 10 DE DICIEMBRE 2026 - 6:00 PM
+       ===================================================== */
+    const targetDate = new Date('2026-12-10T18:00:00-05:00').getTime();
+
+    function updateCountdown() {
+      const now = Date.now();
+      let diff = targetDate - now;
+      if (diff < 0) diff = 0;
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* =====================================================
+       5. TABS DEL CUENTO (HISTORIA & AGRADECIMIENTO)
+       ===================================================== */
+    const storyTexts = {
+      '1': '“Llegamos a nuestra escuelita con una mochila llena de ilusión, crayolas y sueños. Entre canciones, juegos y sonrisas aprendimos a compartir, y hoy damos nuestro primer gran paso hacia una nueva aventura.” ✨',
+      '2': '“Con nuestros pequeños corazones agradecemos a Dios, a nuestros papitos por su amor infinito y a nuestra querida Miss por enseñarnos con tanta dulzura a brillar como estrellitas de paz y amor.” 💖🌟'
+    };
+
+    const tabButtons = document.querySelectorAll('.story-tab-btn');
+    const storyQuotePanel = document.getElementById('story-quote-panel');
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const key = btn.getAttribute('data-story');
+        storyQuotePanel.textContent = storyTexts[key];
+        playMagicChime();
+      });
+    });
+
+    /* =====================================================
+       6. INTERACCIÓN: LANZAR BIRRETES Y ESTRELLAS AL AIRE
+       ===================================================== */
+    const capTossArena = document.getElementById('cap-toss-arena');
+    const btnTossCaps = document.getElementById('btn-toss-caps');
+    const heroGraduatesStage = document.getElementById('hero-graduates-stage');
+    const starScoreEl = document.getElementById('star-score');
+    const magicToast = document.getElementById('magic-toast');
+    let starScore = 128;
+    let toastTimer = null;
+
+    function showToast(msg) {
+      magicToast.textContent = msg;
+      magicToast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        magicToast.classList.remove('show');
+      }, 3200);
+    }
+
+    function triggerCapToss() {
+      playMagicChime();
+      launchStarConfetti();
+      starScore += 5;
+      starScoreEl.textContent = starScore;
+
+      capTossArena.classList.add('jumping');
+      setTimeout(() => capTossArena.classList.remove('jumping'), 600);
+
+      const icons = ['🎓', '⭐', '🎓', '🌟', '🎈', '🩵', '🩷'];
+      for (let i = 0; i < 6; i++) {
+        const cap = document.createElement('div');
+        cap.className = 'flying-cap';
+        cap.textContent = icons[i % icons.length];
+        cap.style.left = (15 + Math.random() * 70) + '%';
+        cap.style.bottom = '18px';
+        capTossArena.appendChild(cap);
+        setTimeout(() => cap.remove(), 1200);
+      }
+
+      showToast('🎓 ¡Arriba los birretes! +5 Estrellitas de Paz y Amor ⭐');
+    }
+
+    btnTossCaps.addEventListener('click', triggerCapToss);
+    capTossArena.addEventListener('click', triggerCapToss);
+
+    heroGraduatesStage.addEventListener('click', () => {
+      heroGraduatesStage.classList.add('celebrating');
+      setTimeout(() => heroGraduatesStage.classList.remove('celebrating'), 600);
+      playMagicChime();
+      launchStarConfetti();
+      showToast('🌟 ¡Estrellitas forjadoras de un mundo de paz y amor! 🩵🩷');
+    });
+
+    /* =====================================================
+       7. PARTÍCULAS FLOTANTES DE FONDO & SCROLL REVEAL
+       ===================================================== */
+    const floatingLayer = document.getElementById('floating-layer');
+    const floatIcons = ['⭐', '🎈', '🎓', '✨', '🩵', '🩷', '🌟'];
+
+    for (let i = 0; i < 18; i++) {
+      const el = document.createElement('div');
+      el.className = 'float-particle';
+      el.textContent = floatIcons[i % floatIcons.length];
+      el.style.left = (Math.random() * 96) + 'vw';
+      el.style.fontSize = (15 + Math.random() * 14) + 'px';
+      el.style.animationDuration = (10 + Math.random() * 12) + 's';
+      el.style.animationDelay = (Math.random() * 10) + 's';
+      floatingLayer.appendChild(el);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll('.story-card').forEach((card) => observer.observe(card));
+
+    /* =====================================================
+       8. ESTELA DE ESTRELLITAS AL TOCAR / DESLIZAR (CANVAS)
+       ===================================================== */
+    const canvas = document.getElementById('sparkle-canvas');
+    const ctx = canvas.getContext('2d');
+    let sparkles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function spawnSparkle(x, y) {
+      const palette = ['#fbbf24', '#38bdf8', '#f472b6', '#fde047'];
+      for (let i = 0; i < 3; i++) {
+        sparkles.push({
+          x,
+          y,
+          vx: (Math.random() - 0.5) * 3,
+          vy: (Math.random() - 0.7) * 3,
+          size: 4 + Math.random() * 5,
+          alpha: 1,
+          color: palette[Math.floor(Math.random() * palette.length)]
+        });
+      }
+    }
+
+    window.addEventListener('pointermove', (e) => spawnSparkle(e.clientX, e.clientY), { passive: true });
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches[0]) spawnSparkle(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    function animateSparkles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = sparkles.length - 1; i >= 0; i--) {
+        const p = sparkles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.028;
+        if (p.alpha <= 0) {
+          sparkles.splice(i, 1);
+          continue;
+        }
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+      requestAnimationFrame(animateSparkles);
+    }
+    animateSparkles();
+
+    /* =====================================================
+       9. FORMULARIO RSVP A WHATSAPP
+       ===================================================== */
+    const rsvpForm = document.getElementById('rsvp-form');
+    rsvpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('guest-name').value.trim();
+      const count = document.getElementById('guest-count').value;
+      const wish = document.getElementById('guest-wish').value.trim() || '¡Muchas felicidades a toda la promoción!';
+
+      const text =
+        `🎓✨ *CONFIRMACIÓN DE ASISTENCIA - PROMOCIÓN INICIAL* ✨🎓\n` +
+        `⭐ *"Estrellitas forjadoras de un mundo de paz y amor"*\n\n` +
+        `👤 *Invitado / Familia:* ${name}\n` +
+        `🎟️ *Asistentes:* ${count}\n` +
+        `🗓️ *Fecha:* Jueves 10 de Diciembre - 6:00 PM\n` +
+        `📍 *Lugar:* Sabrina's Recepciones (Huayna Cápac 1790 - La Victoria)\n` +
+        `💌 *Mensaje:* ${wish}`;
+
+      const phone = '51923745735';
+      const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank', 'noopener');
+    });
+  </script>
+</body>
+</html>
